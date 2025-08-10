@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
 const ridesService = require('../services/rides.service');
 
 // Request a ride (riders only)
-router.post('/request', auth, async (req, res, next) => {
+router.post('/request', async (req, res, next) => {
   try {
     const { pickupLocation, destination, fare } = req.body;
     const ride = await ridesService.requestRide(
@@ -20,7 +19,7 @@ router.post('/request', auth, async (req, res, next) => {
 });
 
 // Get available ride requests (drivers)
-router.get('/available', auth, async (req, res, next) => {
+router.get('/available', async (req, res, next) => {
   try {
     if (req.user.userType !== 'driver') {
       return res.status(403).json({ success: false, message: 'Forbidden' });
@@ -33,7 +32,7 @@ router.get('/available', auth, async (req, res, next) => {
 });
 
 // Accept a ride (drivers)
-router.put('/:id/accept', auth, async (req, res, next) => {
+router.put('/:id/accept', async (req, res, next) => {
   try {
     const ride = await ridesService.acceptRide(req.params.id, req.user._id);
     res.json({ success: true, data: ride });
@@ -43,7 +42,7 @@ router.put('/:id/accept', auth, async (req, res, next) => {
 });
 
 // Update ride status
-router.put('/:id/status', auth, async (req, res, next) => {
+router.put('/:id/status', async (req, res, next) => {
   try {
     const ride = await ridesService.updateStatus(
       req.params.id,
@@ -57,7 +56,7 @@ router.put('/:id/status', auth, async (req, res, next) => {
 });
 
 // Get user's ride history
-router.get('/history', auth, async (req, res, next) => {
+router.get('/history', async (req, res, next) => {
   try {
     const rides = await ridesService.getRideHistory(req.user._id);
     res.json({ success: true, data: rides });

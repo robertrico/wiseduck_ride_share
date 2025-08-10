@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
 const usersService = require('../services/users.service');
 
-// Get user profile
-router.get('/profile', auth, async (req, res, next) => {
+// Get user profile (auth middleware applied globally)
+router.get('/profile', async (req, res, next) => {
   try {
     const user = await usersService.getProfile(req.user._id);
     res.json({ success: true, data: user });
@@ -14,7 +13,7 @@ router.get('/profile', auth, async (req, res, next) => {
 });
 
 // Update user profile
-router.put('/profile', auth, async (req, res, next) => {
+router.put('/profile', async (req, res, next) => {
   try {
     const user = await usersService.updateProfile(req.user._id, req.body);
     res.json({ success: true, data: user });
@@ -24,7 +23,7 @@ router.put('/profile', auth, async (req, res, next) => {
 });
 
 // Add or update vehicles for drivers
-router.put('/vehicles', auth, async (req, res, next) => {
+router.put('/vehicles', async (req, res, next) => {
   try {
     const user = await usersService.updateVehicles(req.user._id, req.body.vehicles || []);
     res.json({ success: true, data: user });

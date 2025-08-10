@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const db = require('./utils/db');
+const auth = require('./middleware/auth');
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+// Protect all routes below
+app.use(auth);
 app.use('/api/users', require('./routes/users'));
 app.use('/api/rides', require('./routes/rides'));
 
