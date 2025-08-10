@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const User = require('./models/User');
+const Ride = require('./models/Ride');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rideshare';
 
@@ -92,7 +93,7 @@ const riders = Array.from({ length: 25 }).map((_, i) => ({
 
 async function seed() {
   await mongoose.connect(MONGODB_URI);
-  await User.deleteMany({});
+  await Promise.all([User.deleteMany({}), Ride.deleteMany({})]);
 
   const password = await bcrypt.hash('password', 10);
 
@@ -114,7 +115,46 @@ async function seed() {
     });
   });
 
-  await User.insertMany(users);
+  const insertedUsers = await User.insertMany(users);
+
+  const userMap = insertedUsers.reduce((map, user) => {
+    map[user.email] = user;
+    return map;
+  }, {});
+
+  const rideSeeds = [
+    {
+      riderId: userMap['rider1@example.com']._id,
+      pickupLocation: { latitude: 37.7749, longitude: -122.4194 },
+      destination: { latitude: 37.7849, longitude: -122.4094 },
+      status: 'requested'
+    },
+    {
+      riderId: userMap['rider2@example.com']._id,
+      pickupLocation: { latitude: 34.0522, longitude: -118.2437 },
+      destination: { latitude: 34.0622, longitude: -118.2437 },
+      status: 'requested'
+    },
+    {
+      riderId: userMap['rider3@example.com']._id,
+      driverId: userMap['driver1@example.com']._id,
+      pickupLocation: { latitude: 40.7128, longitude: -74.0060 },
+      destination: { latitude: 40.7228, longitude: -74.0060 },
+      status: 'in_progress',
+      fare: 20
+    },
+    {
+      riderId: userMap['rider4@example.com']._id,
+      driverId: userMap['driver2@example.com']._id,
+      pickupLocation: { latitude: 41.8781, longitude: -87.6298 },
+      destination: { latitude: 41.8881, longitude: -87.6298 },
+      status: 'completed',
+      fare: 15.75,
+      completedAt: new Date()
+    }
+  ];
+
+  await Ride.insertMany(rideSeeds);
   console.log('Database seeded successfully');
   await mongoose.disconnect();
 }
