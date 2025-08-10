@@ -1,0 +1,19 @@
+meta {
+  name: Request Ride
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3000/api/rides/request
+  body: json
+  auth: bearer {{token}}
+}
+
+body:json {
+  {
+    "pickupLocation": { "latitude": 0, "longitude": 0 },
+    "destination": { "latitude": 1, "longitude": 1 },
+    "fare": 20
+  }
+}

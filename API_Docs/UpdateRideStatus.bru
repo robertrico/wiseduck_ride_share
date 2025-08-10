@@ -1,0 +1,17 @@
+meta {
+  name: Update Ride Status
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:3000/api/rides/{{rideId}}/status
+  body: json
+  auth: bearer {{token}}
+}
+
+body:json {
+  {
+    "status": "in_progress"
+  }
+}
