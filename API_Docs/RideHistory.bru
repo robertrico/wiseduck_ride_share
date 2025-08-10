@@ -1,0 +1,10 @@
+meta {
+  name: Ride History
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:3000/api/rides/history
+  auth: bearer {{token}}
+}

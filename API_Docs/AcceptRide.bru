@@ -1,0 +1,10 @@
+meta {
+  name: Accept Ride
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:3000/api/rides/{{rideId}}/accept
+  auth: bearer {{token}}
+}

@@ -1,0 +1,18 @@
+meta {
+  name: Update Profile
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/api/users/profile
+  body: json
+  auth: bearer {{token}}
+}
+
+body:json {
+  {
+    "name": "Updated Name",
+    "phone": "1234567890"
+  }
+}

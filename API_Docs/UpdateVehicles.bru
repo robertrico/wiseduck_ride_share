@@ -1,0 +1,26 @@
+meta {
+  name: Update Vehicles
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3000/api/users/vehicles
+  body: json
+  auth: bearer {{token}}
+}
+
+body:json {
+  {
+    "vehicles": [
+      {
+        "make": "Toyota",
+        "model": "Camry",
+        "year": 2018,
+        "color": "Blue",
+        "licensePlate": "ABC123",
+        "seats": 4
+      }
+    ]
+  }
+}
