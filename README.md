@@ -28,6 +28,14 @@ Basic ride-sharing API built with Node.js, Express and MongoDB. Includes user au
 - `npm start` – start the server
 - `npm run dev` – start with nodemon
 - `npm test` – run placeholder tests
+- `npm run seed` – populate the database with sample data
+
+## Database Seeding
+To load sample users, ride requests and rides into the database, run:
+```
+npm run seed
+```
+See `seeded.md` for details on the seeded records.
 
 ## API Endpoints
 

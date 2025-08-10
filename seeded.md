@@ -46,3 +46,17 @@ All users use the password `password`.
 | Rider 23 | rider23@example.com |
 | Rider 24 | rider24@example.com |
 | Rider 25 | rider25@example.com |
+
+## Ride Requests
+
+| Rider | Pickup (Lat, Long) | Destination (Lat, Long) |
+| ----- | ------------------ | ----------------------- |
+| Rider 1 | (37.7749, -122.4194) | (37.7849, -122.4094) |
+| Rider 2 | (34.0522, -118.2437) | (34.0622, -118.2437) |
+
+## Sample Rides
+
+| Rider | Driver | Status | Fare |
+| ----- | ------ | ------ | ---- |
+| Rider 3 | Driver 1 | in_progress | 20 |
+| Rider 4 | Driver 2 | completed | 15.75 |
