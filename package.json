@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "echo \"No tests\"",
+    "test": "jest",
     "seed": "node src/seed.js"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "mongoose": "^7.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0"
   }
 }
